@@ -25,7 +25,6 @@ WINDOW *create_new_centered_window()
     int window_h = 20;
     int window_w = 80;
 
-
     WINDOW *window = newwin(
         window_h, 
         window_w,

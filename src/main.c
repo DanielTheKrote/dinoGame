@@ -3,6 +3,7 @@
 #include <ncurses/curses.h> 
 
 #include "window.h"
+#include "game.h"
 
 int main(int argc, char **argv)
 {
@@ -11,10 +12,11 @@ int main(int argc, char **argv)
     
     WINDOW *window = create_new_centered_window();
 
-
     for (;;) 
     {
         wclear(window);
+
+        draw_game_ground(window);
     
         box(window, 0, 0);
 
