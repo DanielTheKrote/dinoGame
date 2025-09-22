@@ -17,4 +17,7 @@ typedef struct Entity {
 void apply_entity_dir(t_entity *e);
 t_entity create_new_entity(int x, int y, int h, int w);
 
+
+bool check_aabb_collision(t_entity *e1, t_entity *e2);
+
 #endif
