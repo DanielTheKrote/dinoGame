@@ -27,17 +27,26 @@ int main(int argc, char **argv)
         wclear(window);
         box(window, 0, 0);
 
+        draw_game_ground(window);
         mvwaddch(window, player.pos.y, player.pos.x, 'P');
 
-        for (int y = 0; y < obs.h; y++)
-            for (int x = 0; x < obs.w; x++)
-                mvwaddch(window, obs.pos.y + y, obs.pos.x + x, 'L');
+        draw_block_to_window(
+            window, 
+            obs.pos.y,
+            obs.pos.x,
+            obs.h,
+            obs.w, 
+            'L'
+        );
 
-        for (int y = 0; y < obs2.h; y++)
-            for (int x = 0; x < obs2.w; x++)
-                mvwaddch(window, obs2.pos.y + y, obs2.pos.x + x, 'L');
-
-        draw_game_ground(window);
+        draw_block_to_window(
+            window, 
+            obs2.pos.y,
+            obs2.pos.x,
+            obs2.h,
+            obs2.w, 
+            'L'
+        );
 
         apply_entity_dir(&player);
 

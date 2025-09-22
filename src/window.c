@@ -34,3 +34,10 @@ WINDOW *create_new_centered_window()
 
     return window;
 }
+
+void draw_block_to_window(WINDOW *window, int y, int x, int h, int w, char ch) 
+{
+    for (int j = 0; j < h; j++)
+        for (int i = 0; i < w; i++)
+            mvwaddch(window, y + j, x + i, ch);
+}
