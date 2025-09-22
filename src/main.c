@@ -20,10 +20,12 @@ int main(int argc, char **argv)
     t_entity obs = create_new_entity(14, 60, 3, 3);
     t_entity obs2 = create_new_entity(14, 1, 3, 3);
 
-    player.dir.x = 1;
 
     for (;;) 
     {
+
+        player.dir.x = 0;
+
         wclear(window);
         box(window, 0, 0);
 
@@ -47,6 +49,18 @@ int main(int argc, char **argv)
             obs2.w, 
             'L'
         );
+        
+    
+        switch (getch()) {
+            case 'a':
+                player.dir.x = -1;
+                break;
+            case 'd':
+                player.dir.x = 1;
+                break;
+            default:
+                break;
+        }
 
         apply_entity_dir(&player);
 
@@ -55,7 +69,7 @@ int main(int argc, char **argv)
             check_aabb_collision(&player, &obs2) 
         ) 
         {
-            player.dir.x *= -1;
+            player.pos.x = 7;
         }
     
         wrefresh(window);
