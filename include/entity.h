@@ -14,7 +14,7 @@ typedef struct Entity {
 } t_entity;
 
 
-void apply_dir_to_entity(t_entity *e);
+void apply_entity_dir(t_entity *e);
 t_entity create_new_entity(int x, int y, int h, int w);
 
 #endif

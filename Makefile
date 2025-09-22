@@ -4,7 +4,7 @@ OBJDIR=objs
 INCLUDEDIR=include
 EXE=dino
 
-CFLAGS=-Wall -Werror -std=c99 -I$(INCLUDEDIR) -MMD -MP
+CFLAGS=-Wall -Werror -std=gnu99 -I$(INCLUDEDIR) -MMD -MP
 LDFLAGS=-lncurses
 
 SOURCES=$(wildcard $(SRCDIR)/*.c)

@@ -18,7 +18,7 @@ t_entity create_new_entity (int y, int x, int h, int w)
     };
 }
 
-void apply_dir_to_entity(t_entity *e) 
+void apply_entity_dir(t_entity *e) 
 {
     e->pos.x += e->dir.x;
     e->pos.y += e->dir.y;
