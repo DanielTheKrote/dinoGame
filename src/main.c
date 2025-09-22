@@ -1,8 +1,10 @@
 #include <stdio.h> 
 #include <ncurses/curses.h> 
 
+#include "window.h"
+
 int main(int argc, char **argv)
 {
-    initscr();
-    printf("Hello, World");
+    cast_curses();
+    destroy_curses();
 }
