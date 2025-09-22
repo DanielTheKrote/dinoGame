@@ -17,14 +17,14 @@ int main(int argc, char **argv)
 
     t_entity player = create_new_player();
 
-    t_entity obs = create_new_entity(14, 60, 3, 3);
-    t_entity obs2 = create_new_entity(14, 1, 3, 3);
+    t_entity obs = create_new_entity(14, 60, 3, 2);
+
+    obs.dir.x = -2;
 
 
     for (;;) 
     {
 
-        player.dir.x = 0;
 
         wclear(window);
         box(window, 0, 0);
@@ -40,36 +40,33 @@ int main(int argc, char **argv)
             obs.w, 
             'L'
         );
-
-        draw_block_to_window(
-            window, 
-            obs2.pos.y,
-            obs2.pos.x,
-            obs2.h,
-            obs2.w, 
-            'L'
-        );
+       
+        if (player.pos.y > 15)
+            player.pos.y = 15;
         
     
         switch (getch()) {
-            case 'a':
-                player.dir.x = -1;
-                break;
-            case 'd':
-                player.dir.x = 1;
+            case 'w':
+                player.dir.y = -4;
                 break;
             default:
                 break;
         }
 
-        apply_entity_dir(&player);
+        player.dir.x = 0;
+        if (player.dir.y <= 0)
+            player.dir.y += 1;
 
-        if (
-            check_aabb_collision(&player, &obs) ||
-            check_aabb_collision(&player, &obs2) 
-        ) 
+        apply_entity_dir(&player);
+        apply_entity_dir(&obs);
+
+        if (obs.pos.x < 0) {
+            obs.pos.x = 120;
+        }
+
+        if (check_aabb_collision(&player, &obs)) 
         {
-            player.pos.x = 7;
+            obs.pos.x = 120;
         }
     
         wrefresh(window);

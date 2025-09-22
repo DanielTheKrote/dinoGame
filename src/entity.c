@@ -26,12 +26,23 @@ void apply_entity_dir(t_entity *e)
     e->pos.y += e->dir.y;
 }
 
-bool check_aabb_collision(t_entity *e1, t_entity *e2) 
+bool check_aabb_collision(t_entity *entity_a, t_entity *entity_b) 
 {    
-    return (
-        e1->pos.x < e2->pos.x + e2->w &&
-        e1->pos.x + e1->w > e2->pos.x &&
-        e1->pos.y < e2->pos.y + e2->h &&
-        e1->pos.y + e1->h > e2->h
+    int left_a = entity_a->pos.x;
+    int right_a = entity_a->pos.x + entity_a->w;
+    int top_a = entity_a->pos.y;
+    int bottom_a = entity_a->pos.y + entity_a->h;
+
+
+    int left_b = entity_b->pos.x;
+    int right_b = entity_b->pos.x + entity_b->w;
+    int top_b = entity_b->pos.y;
+    int bottom_b = entity_b->pos.y + entity_b->h;
+
+   return !( 
+        bottom_a <= top_b   ||
+        top_a >= bottom_b   ||
+        right_a <= left_b   || 
+        left_a  >= right_b  
     );
 }
