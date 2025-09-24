@@ -1,6 +1,7 @@
 #include <stdio.h> 
 #include <unistd.h> 
 #include <ncurses/curses.h> 
+#include <stdlib.h> 
 
 #include "window.h"
 #include "game.h"
@@ -15,59 +16,72 @@ int main(int argc, char **argv)
     
     WINDOW *window = create_new_centered_window();
 
-    t_entity player = create_new_player();
+    t_entity *player = create_new_player();
 
-    t_entity obs = create_new_entity(14, 60, 3, 2);
+    t_obstacle_list *obstacle_head = create_new_obstacle_list(10);
+    
+    size_t obstacle_count = 10;
+    for (
+        t_obstacle_list *head = obstacle_head; 
+        head != NULL && obstacle_count > 0;
+        --obstacle_count
+    )
+    {
+        head->next = create_new_obstacle_list();
+        head->next->current->pos.x = head->current->pos.x + 100;
 
-    obs.dir.x = -2;
-
+        head = head->next;
+    }
 
     for (;;) 
     {
-
-
         wclear(window);
         box(window, 0, 0);
 
         draw_game_ground(window);
-        mvwaddch(window, player.pos.y, player.pos.x, 'P');
 
-        draw_block_to_window(
-            window, 
-            obs.pos.y,
-            obs.pos.x,
-            obs.h,
-            obs.w, 
-            'L'
-        );
+
+        for (t_obstacle_list *head = obstacle_head; head != NULL;)
+        {
+            t_entity *current;
+            if ((current = head->current) != NULL)
+            {
+                draw_block_to_window(
+                    window,
+                    current->pos.y,
+                    current->pos.x,
+                    current->h,
+                    current->w,
+                    '@'
+                );
+                apply_entity_dir(current); 
+            
+                if (current->pos.x < 0) 
+                    current->pos.x = 120;
+
+            }
+            head = head->next;
+        }
+
+        mvwaddch(window, player->pos.y, player->pos.x, 'P');
        
-        if (player.pos.y > 15)
-            player.pos.y = 15;
+        if (player->pos.y > 15)
+            player->pos.y = 15;
         
     
         switch (getch()) {
             case 'w':
-                player.dir.y = -4;
+                player->dir.y = -4;
                 break;
             default:
                 break;
         }
 
-        player.dir.x = 0;
-        if (player.dir.y <= 0)
-            player.dir.y += 1;
+        player->dir.x = 0;
+        if (player->dir.y <= 0)
+            player->dir.y += 1;
 
-        apply_entity_dir(&player);
-        apply_entity_dir(&obs);
-
-        if (obs.pos.x < 0) {
-            obs.pos.x = 120;
-        }
-
-        if (check_aabb_collision(&player, &obs)) 
-        {
-            obs.pos.x = 120;
-        }
+        apply_entity_dir(player);
     
         wrefresh(window);
 

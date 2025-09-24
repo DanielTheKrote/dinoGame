@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "entity.h"
 
@@ -10,14 +11,14 @@ t_vec2 create_new_vector2(int y, int x) {
 }
 
 
-t_entity create_new_entity (int y, int x, int h, int w)
+t_entity *create_new_entity(int y, int x, int h, int w)
 {
-    return (t_entity) {
-        .pos = create_new_vector2(y, x),
-        .dir = create_new_vector2(0, 0),
-        .h = h,
-        .w = w,
-    };
+    t_entity *new_entity = malloc(sizeof(t_entity));
+    new_entity->pos = create_new_vector2(y, x);
+    new_entity->dir = create_new_vector2(0, 0);
+    new_entity->h = h;
+    new_entity->w = w;
+    return new_entity;
 }
 
 void apply_entity_dir(t_entity *e) 

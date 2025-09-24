@@ -1,4 +1,5 @@
 #include <ncurses/curses.h>
+#include <stdlib.h>
 
 #include "game.h"
 #include "entity.h"
@@ -6,6 +7,11 @@
 #define GROUND_SIZE 1
 #define GROUND_CHAR 'W'
 #define GROUND_OFFSET 2
+
+#define OBSTACLE_SPAWN_POS_X    120
+#define OBSTACLE_SPAWN_POS_Y    14
+#define OBSTACLE_W              2
+#define OBSTACLE_H              2
 
 void draw_game_ground(WINDOW *window) 
 {
@@ -17,8 +23,32 @@ void draw_game_ground(WINDOW *window)
             mvwaddch(window, y - GROUND_OFFSET, x, GROUND_CHAR);
 }
 
-t_entity create_new_player() 
+t_entity *create_new_player() 
 {
-    t_entity player = create_new_entity(PLAYER_SPAWNY, PLAYER_SPAWNX, 1, 1);
+    t_entity *player = create_new_entity(PLAYER_SPAWNY, PLAYER_SPAWNX, 1, 1);
     return player;
+}
+
+
+t_obstacle_list *create_new_obstacle_list() 
+{
+    t_obstacle_list *obs = malloc(sizeof(t_obstacle_list));
+
+    obs->next = NULL;
+    obs->current = create_new_entity(
+        OBSTACLE_SPAWN_POS_Y,
+        OBSTACLE_SPAWN_POS_X,
+        OBSTACLE_H,
+        OBSTACLE_W
+    );
+    obs->current->dir.x = -1;
+    obs->id = 0x69;
+
+    return obs;
+}
+
+void add_obstacle_to_list(t_obstacle_list *head) 
+{   
+    t_obstacle_list *new_head = create_new_obstacle_list();
+    head->next = new_head;
 }
