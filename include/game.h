@@ -18,6 +18,6 @@ typedef struct game_obstacles
 
 
 t_obstacle_list *create_new_obstacle_list();
-void add_obstacle_to_list(t_obstacle_list *head);
+size_t sizeof_obstacle_list(t_obstacle_list *list_head);
 
 #endif

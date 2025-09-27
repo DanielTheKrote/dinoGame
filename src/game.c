@@ -11,7 +11,7 @@
 #define OBSTACLE_SPAWN_POS_X    120
 #define OBSTACLE_SPAWN_POS_Y    14
 #define OBSTACLE_W              2
-#define OBSTACLE_H              2
+#define OBSTACLE_H              3
 
 void draw_game_ground(WINDOW *window) 
 {
@@ -47,8 +47,11 @@ t_obstacle_list *create_new_obstacle_list()
     return obs;
 }
 
-void add_obstacle_to_list(t_obstacle_list *head) 
-{   
-    t_obstacle_list *new_head = create_new_obstacle_list();
-    head->next = new_head;
+size_t sizeof_obstacle_list(t_obstacle_list *list_head) 
+{
+    t_obstacle_list *head; 
+    size_t sizeof_list = 1;
+    for (head = list_head; (head = head->next) != NULL; sizeof_list++);
+
+    return sizeof_list;
 }
