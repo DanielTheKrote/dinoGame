@@ -27,20 +27,16 @@ int main(int argc, char **argv)
         create_new_obstacle_node(10, 25)
     );
 
-
     add_node_to_obstacle_list(
         obstacle_list, 
         create_new_obstacle_node(10, 30)
     );
 
-    remove_node_from_obstacle_list(obstacle_list, 1);
 
     add_node_to_obstacle_list(
         obstacle_list, 
         create_new_obstacle_node(10, 35)
     );
-
-    remove_node_from_obstacle_list(obstacle_list, 2);
 
     while (1)
     {
@@ -52,6 +48,7 @@ int main(int argc, char **argv)
         mvwaddch(window, player->pos.y, player->pos.x, 'P');
 
         t_obstacle_list *head = obstacle_list;
+        size_t index = 0;
         while (head != NULL)
         {
             t_entity *obstacle = head->current;
@@ -72,12 +69,28 @@ int main(int argc, char **argv)
 
             apply_entity_dir(obstacle);
 
+            if (obstacle->pos.x < 5)
+            {
+
+                add_node_to_obstacle_list(
+                    obstacle_list, 
+                    create_new_obstacle_node(10, 35)
+                );
+
+                if (index == 0)
+                {
+                    obstacle_list = obstacle_list->next;
+                    continue;
+                }
+
+                remove_node_from_obstacle_list(obstacle_list, index);
+                continue;
+            }
+            index++;
         }
 
         if (player->pos.y > 15)
             player->pos.y = 15;
-
-        if (player->pos.y < 10 && obstacle_list->next != NULL);
         
     
         switch (getch()) {
