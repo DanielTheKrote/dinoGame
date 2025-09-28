@@ -24,4 +24,9 @@ void add_node_to_obstacle_list(
     t_obstacle_list *list_head
 );
 
+void remove_node_from_obstacle_list(
+    t_obstacle_list *list_head,
+    size_t node_index
+);
+
 #endif

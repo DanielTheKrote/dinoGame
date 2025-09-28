@@ -49,6 +49,15 @@ t_obstacle_list *create_new_obstacle_node(int y, int x)
     return node;
 }
 
+void destroy_obstacle_node(t_obstacle_list *node)
+{
+    if (node->current) 
+        destroy_entity(node->current);
+
+    free(node);
+}
+
+
 void add_node_to_obstacle_list(
     t_obstacle_list *list_head,
     t_obstacle_list *next
@@ -61,10 +70,43 @@ void add_node_to_obstacle_list(
     head->next = next;
 }
 
-void destroy_obstacle_node(t_obstacle_list *node)
+size_t get_obstacle_list_size(t_obstacle_list *list_head)
 {
-    if (node->current) 
-        destroy_entity(node->current);
+    t_obstacle_list *head = list_head;
+    size_t count = 0;
+    while (head != NULL)
+    {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
 
-    free(node);
+void remove_node_from_obstacle_list(
+    t_obstacle_list *list_head,
+    size_t node_index
+)
+{
+    size_t list_size = get_obstacle_list_size(list_head);
+
+    if (node_index < 0 || node_index >= list_size)
+        return;
+
+
+    t_obstacle_list *last = list_head;
+    t_obstacle_list *current = list_head;
+
+    while (current != NULL)
+    {
+    
+        if ((node_index--) == 0) // target node 
+        { 
+            last->next = current->next;
+            destroy_obstacle_node(current);
+            return;
+        }
+
+        last = current;
+        current = current->next;            
+    }
 }

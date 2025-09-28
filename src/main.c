@@ -27,8 +27,20 @@ int main(int argc, char **argv)
         create_new_obstacle_node(10, 25)
     );
 
-    destroy_obstacle_node(obstacle_list->next);
-    obstacle_list->next = NULL;
+
+    add_node_to_obstacle_list(
+        obstacle_list, 
+        create_new_obstacle_node(10, 30)
+    );
+
+    remove_node_from_obstacle_list(obstacle_list, 1);
+
+    add_node_to_obstacle_list(
+        obstacle_list, 
+        create_new_obstacle_node(10, 35)
+    );
+
+    remove_node_from_obstacle_list(obstacle_list, 2);
 
     while (1)
     {
