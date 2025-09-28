@@ -1,5 +1,5 @@
 #include <stdio.h> 
-
+#include <time.h> 
 #include <unistd.h> 
 #include <ncurses/curses.h> 
 #include <stdlib.h> 
@@ -11,6 +11,9 @@
 #define TARGET_FPS 24
 #define SLEEPTIME 1000000 / TARGET_FPS
 
+#define OBSTACLE_SPAWN_X 120
+#define OBSTACLE_SPAWN_Y 14
+
 
 int main(int argc, char **argv)
 {
@@ -20,23 +23,10 @@ int main(int argc, char **argv)
 
     t_entity *player = create_new_player();
 
-    t_obstacle_list *obstacle_list = create_new_obstacle_node(10, 20);
+    // little hack 
+    t_obstacle_list *obstacle_list = create_new_obstacle_node(100, 100);
 
-    add_node_to_obstacle_list(
-        obstacle_list, 
-        create_new_obstacle_node(10, 25)
-    );
-
-    add_node_to_obstacle_list(
-        obstacle_list, 
-        create_new_obstacle_node(10, 30)
-    );
-
-
-    add_node_to_obstacle_list(
-        obstacle_list, 
-        create_new_obstacle_node(10, 35)
-    );
+    srand(time(NULL));
 
     while (1)
     {
@@ -69,13 +59,8 @@ int main(int argc, char **argv)
 
             apply_entity_dir(obstacle);
 
-            if (obstacle->pos.x < 5)
+            if (obstacle->pos.x < 0 - obstacle->w)
             {
-
-                add_node_to_obstacle_list(
-                    obstacle_list, 
-                    create_new_obstacle_node(10, 35)
-                );
 
                 if (index == 0)
                 {
@@ -87,6 +72,17 @@ int main(int argc, char **argv)
                 continue;
             }
             index++;
+        }
+
+        if ((rand() % (1000) + 0) % 19 == 0)
+        {
+            add_node_to_obstacle_list(
+                obstacle_list, 
+                create_new_obstacle_node(
+                    OBSTACLE_SPAWN_Y,
+                    OBSTACLE_SPAWN_X
+                )
+            );
         }
 
         if (player->pos.y > 15)
