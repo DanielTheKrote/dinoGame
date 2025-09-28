@@ -24,6 +24,11 @@ int main(int argc, char **argv)
         create_new_entity(10, 20, 3, 3)
     );
 
+    add_node_to_obstacle_list(
+        obstacle_list, 
+        create_new_obstacle_node(create_new_entity(10, 25, 3, 3))
+    );
+
     while (1)
     {
         wclear(window);
