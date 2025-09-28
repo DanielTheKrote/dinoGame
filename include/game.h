@@ -13,11 +13,8 @@ typedef struct game_obstacles
 {
     t_entity *current;
     struct game_obstacles *next;
-    size_t  id;
 } t_obstacle_list;
 
-
 t_obstacle_list *create_new_obstacle_list();
-size_t sizeof_obstacle_list(t_obstacle_list *list_head);
 
 #endif

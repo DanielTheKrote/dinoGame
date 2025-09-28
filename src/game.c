@@ -30,28 +30,22 @@ t_entity *create_new_player()
 }
 
 
-t_obstacle_list *create_new_obstacle_list() 
+t_obstacle_list *create_new_obstacle_list()
 {
-    t_obstacle_list *obs = malloc(sizeof(t_obstacle_list));
-
-    obs->next = NULL;
-    obs->current = create_new_entity(
-        OBSTACLE_SPAWN_POS_Y,
-        OBSTACLE_SPAWN_POS_X,
-        OBSTACLE_H,
-        OBSTACLE_W
-    );
-    obs->current->dir.x = -1;
-    obs->id = 0x69;
-
-    return obs;
+    t_obstacle_list *list = malloc(sizeof(t_obstacle_list));
+    list->current = NULL;
+    list->next = NULL;
+    return list;
 }
 
-size_t sizeof_obstacle_list(t_obstacle_list *list_head) 
+void add_new_obstacle_to_list(
+    t_obstacle_list *obstacle, 
+    t_obstacle_list *list_head
+)
 {
-    t_obstacle_list *head; 
-    size_t sizeof_list = 1;
-    for (head = list_head; (head = head->next) != NULL; sizeof_list++);
+    t_obstacle_list *head = list_head;
+    while (head->next != NULL)
+        head = head->next;
 
-    return sizeof_list;
+    head->next = obstacle;
 }

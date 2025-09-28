@@ -20,10 +20,13 @@ int main(int argc, char **argv)
 
     t_entity *player = create_new_player();
 
-    t_obstacle_list *obstacle_head = create_new_obstacle_list();
+    t_obstacle_list *obstacle_list = create_new_obstacle_list();
 
-    size_t count __attribute__((unused)) = 
-        sizeof_obstacle_list(obstacle_head);
+    obstacle_list->current = create_new_entity(10, 20, 3, 3);
+
+    obstacle_list->next = create_new_obstacle_list();
+
+    obstacle_list->next->current = create_new_entity(10, 30, 3, 3);
 
     while (1)
     {
@@ -32,24 +35,27 @@ int main(int argc, char **argv)
 
         draw_game_ground(window);
 
-    
-        for (t_obstacle_list *head = obstacle_head; head != NULL;) 
+        mvwaddch(window, player->pos.y, player->pos.x, 'P');
+
+        t_obstacle_list *head = obstacle_list;
+        while (head != NULL)
         {
             t_entity *obstacle = head->current;
+            head = head->next;
+            if (obstacle == NULL)
+                continue;
+
             draw_block_to_window(
                 window,
                 obstacle->pos.y,
                 obstacle->pos.x,
                 obstacle->h,
                 obstacle->w,
-                '@'
+                '#'
             );
-            apply_entity_dir(obstacle);
-            head = head->next;
+
         }
 
-        mvwaddch(window, player->pos.y, player->pos.x, 'P');
-       
         if (player->pos.y > 15)
             player->pos.y = 15;
         
