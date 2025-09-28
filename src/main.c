@@ -25,6 +25,10 @@ int main(int argc, char **argv)
 
     // little hack 
     t_obstacle_list *obstacle_list = create_new_obstacle_node(100, 100);
+    obstacle_list->current->dir.x = 0;
+
+    time_t last_spawned_time;
+    time(&last_spawned_time);
 
     srand(time(NULL));
 
@@ -74,7 +78,13 @@ int main(int argc, char **argv)
             index++;
         }
 
-        if ((rand() % (1000) + 0) % 19 == 0)
+
+        time_t current_time;
+        time(&current_time);
+
+        bool enought_time = current_time - last_spawned_time > 1;
+
+        if ((rand() % 30) == 3 && enought_time)
         {
             add_node_to_obstacle_list(
                 obstacle_list, 
@@ -83,6 +93,7 @@ int main(int argc, char **argv)
                     OBSTACLE_SPAWN_X
                 )
             );
+            last_spawned_time = current_time;
         }
 
         if (player->pos.y > 15)
