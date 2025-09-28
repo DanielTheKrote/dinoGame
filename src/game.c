@@ -41,6 +41,9 @@ t_obstacle_list *create_new_obstacle_list()
 t_obstacle_list *create_new_obstacle_node(int y, int x) 
 {
     t_entity *obstacle = create_new_entity(y, x, OBSTACLE_H, OBSTACLE_W);
+    
+    obstacle->dir.x = -1;
+
     t_obstacle_list *node = create_new_obstacle_list();
     node->current = obstacle;
     return node;
@@ -56,4 +59,12 @@ void add_node_to_obstacle_list(
         head = head->next;
 
     head->next = next;
+}
+
+void destroy_obstacle_node(t_obstacle_list *node)
+{
+    if (node->current) 
+        destroy_entity(node->current);
+
+    free(node);
 }

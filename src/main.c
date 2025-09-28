@@ -27,6 +27,9 @@ int main(int argc, char **argv)
         create_new_obstacle_node(10, 25)
     );
 
+    destroy_obstacle_node(obstacle_list->next);
+    obstacle_list->next = NULL;
+
     while (1)
     {
         wclear(window);
@@ -40,7 +43,9 @@ int main(int argc, char **argv)
         while (head != NULL)
         {
             t_entity *obstacle = head->current;
+
             head = head->next;
+
             if (obstacle == NULL)
                 continue;
 
@@ -53,10 +58,14 @@ int main(int argc, char **argv)
                 '#'
             );
 
+            apply_entity_dir(obstacle);
+
         }
 
         if (player->pos.y > 15)
             player->pos.y = 15;
+
+        if (player->pos.y < 10 && obstacle_list->next != NULL);
         
     
         switch (getch()) {

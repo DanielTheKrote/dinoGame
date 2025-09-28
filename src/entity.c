@@ -21,6 +21,11 @@ t_entity *create_new_entity(int y, int x, int h, int w)
     return new_entity;
 }
 
+void destroy_entity(t_entity *entity) 
+{
+    free(entity);
+}
+
 void apply_entity_dir(t_entity *e) 
 {
     e->pos.x += e->dir.x;
