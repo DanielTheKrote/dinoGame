@@ -38,7 +38,14 @@ t_obstacle_list *create_new_obstacle_list()
     return list;
 }
 
-void add_new_obstacle_to_list(
+t_obstacle_list *create_new_obstacle_node(t_entity *obstacle) 
+{
+    t_obstacle_list *node = create_new_obstacle_list();
+    node->current = obstacle;
+    return node;
+}
+
+void add_node_to_obstacle_list(
     t_obstacle_list *obstacle, 
     t_obstacle_list *list_head
 )

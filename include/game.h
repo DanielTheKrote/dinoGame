@@ -15,6 +15,7 @@ typedef struct game_obstacles
     struct game_obstacles *next;
 } t_obstacle_list;
 
-t_obstacle_list *create_new_obstacle_list();
+//t_obstacle_list *create_new_obstacle_list();
+t_obstacle_list *create_new_obstacle_node(t_entity *obstacle);
 
 #endif

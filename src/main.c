@@ -20,13 +20,9 @@ int main(int argc, char **argv)
 
     t_entity *player = create_new_player();
 
-    t_obstacle_list *obstacle_list = create_new_obstacle_list();
-
-    obstacle_list->current = create_new_entity(10, 20, 3, 3);
-
-    obstacle_list->next = create_new_obstacle_list();
-
-    obstacle_list->next->current = create_new_entity(10, 30, 3, 3);
+    t_obstacle_list *obstacle_list = create_new_obstacle_node(
+        create_new_entity(10, 20, 3, 3)
+    );
 
     while (1)
     {
