@@ -38,8 +38,9 @@ t_obstacle_list *create_new_obstacle_list()
     return list;
 }
 
-t_obstacle_list *create_new_obstacle_node(t_entity *obstacle) 
+t_obstacle_list *create_new_obstacle_node(int y, int x) 
 {
+    t_entity *obstacle = create_new_entity(y, x, OBSTACLE_H, OBSTACLE_W);
     t_obstacle_list *node = create_new_obstacle_list();
     node->current = obstacle;
     return node;
