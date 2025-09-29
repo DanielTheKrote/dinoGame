@@ -50,7 +50,8 @@ int main(int argc, char **argv)
 
     restart_game(window);
 
-    while (1)
+    bool is_running = true;
+    while (is_running)
     {
         wclear(window);
         box(window, 0, 0);
@@ -132,6 +133,9 @@ int main(int argc, char **argv)
                 if (is_player_on_ground)
                     player->dir.y = -4;
                 break;
+            case 'q':
+                is_running = false;
+                break;
             default:
                 break;
         }
@@ -145,4 +149,6 @@ int main(int argc, char **argv)
 
         usleep(SLEEPTIME);
     }
+
+    destroy_curses();
 }
