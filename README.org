@@ -6,29 +6,32 @@
 
 ** Usage:
 
-+ Clone the repo
+*** Clone the repo
 #+begin_src bash
   git clone https://github.com/DanielTheKrote/dinoGame
   cd dinoGame
 #+end_src
 
-+ Build it:
-  +First, you'll need some dependencies:
+*** Building it:
+
+**** First, you'll need some dependencies:
     - make
     - gcc
     - ncurses.h (v 6.5.2024042)
     - unistd.h
 
-  + If you have nix installed, just use:
-    #+bin_src bash
+    If you have nix installed, just use:
+    
+    #+begin_src bash
       nix develop
     #+end_src
-   
+    
+**** Then
 #+begin_src bash
   make
 #+end_src
 
-+ Run it
+*** Running it
 #+begin_src bash
   ./dino
   # or
