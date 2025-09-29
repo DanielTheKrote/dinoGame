@@ -15,20 +15,30 @@
 #define OBSTACLE_SPAWN_Y 14
 
 
+t_entity *player; 
+t_obstacle_list *obstacle_list; 
+time_t last_spawned_time;
+
+void restart_game() 
+{
+    player = create_new_player();
+
+    // little hack 
+    obstacle_list = create_new_obstacle_node(100, 100);
+    obstacle_list->current->dir.x = 0;
+
+    time(&last_spawned_time);
+}
+
+
 int main(int argc, char **argv)
 {
     cast_curses();
+
+    restart_game();
     
     WINDOW *window = create_new_centered_window();
 
-    t_entity *player = create_new_player();
-
-    // little hack 
-    t_obstacle_list *obstacle_list = create_new_obstacle_node(100, 100);
-    obstacle_list->current->dir.x = 0;
-
-    time_t last_spawned_time;
-    time(&last_spawned_time);
 
     srand(time(NULL));
 
@@ -63,6 +73,12 @@ int main(int argc, char **argv)
 
             apply_entity_dir(obstacle);
 
+            if (check_aabb_collision(player, obstacle))
+            {
+                restart_game();
+                continue;
+            }
+
             if (obstacle->pos.x < 0 - obstacle->w)
             {
 
@@ -96,6 +112,7 @@ int main(int argc, char **argv)
             last_spawned_time = current_time;
         }
 
+
         bool is_player_on_ground = false;
         if (player->pos.y > 15)
         {
@@ -104,7 +121,8 @@ int main(int argc, char **argv)
         }
         
     
-        switch (getch()) {
+        switch (getch()) 
+        {
             case 'w':
                 if (is_player_on_ground)
                     player->dir.y = -4;
