@@ -1,8 +1,13 @@
-#+title: Dino Game
+#+title: Dino Game :crocodile:
 #+author: Daniel Maturano
-#+date: Mon Sep 29 10:26:08 AM -03 2025
+#+date: Mon Sep 29 10:26:08 AM -03 
 
-* Dino Game - A clone from the chrome's dino game written in C.
+** What is this project?
+
+This project is a simple clone from the chrome's dino game that runs on the terminal
+it's written in C using the ncurses library.
+
+It also use *nix* :snowflake: to manage the libraries and package the program.
 
 ** Usage:
 
@@ -38,5 +43,5 @@
   nix run .
 #+end_src
 
-** License
+** License :scroll:
 The project is under the [[./LICENSE][GPL3]] License
