@@ -8,7 +8,7 @@ void cast_curses()
 {
     initscr();
     noecho();
-    cbreak();
+    //cbreak();
     curs_set(0);
     nodelay(stdscr, TRUE);
 }
@@ -50,4 +50,23 @@ void draw_player_score(WINDOW *window, unsigned int player_score)
 
     int window_w = getmaxx(window);
     mvwprintw(window, 0, (window_w  - strlen(buf)) / 2, "%d", player_score);
+}
+
+void set_init_window(WINDOW *window)
+{
+    wclear(window);
+    box(window, 0, 0);
+    int window_w, window_h; 
+    
+    char *text = "Press any key to start the game!";
+
+    getmaxyx(window, window_h, window_w);
+    mvwprintw(
+        window, 
+        (window_h)  / 2,
+        (window_w - strlen(text)) / 2, 
+        "%s",
+        text
+    );
+    wrefresh(window); 
 }

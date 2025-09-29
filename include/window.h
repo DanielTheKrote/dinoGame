@@ -7,6 +7,8 @@ void draw_block_to_window(WINDOW *window, int y, int x, int h, int w, char ch);
 
 void draw_player_score(WINDOW *window, unsigned int player_score);
 
+void set_init_window(WINDOW *window);
+
 WINDOW *create_new_centered_window();
 
 #endif

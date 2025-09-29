@@ -43,8 +43,13 @@ int main(int argc, char **argv)
     
     WINDOW *window = create_new_centered_window();
 
-
     srand(time(NULL));
+
+    while (getch() == ERR)
+    {
+        set_init_window(window);
+        usleep(SLEEPTIME);
+    }
 
     while (1)
     {
