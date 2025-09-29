@@ -19,6 +19,8 @@ t_entity *player;
 t_obstacle_list *obstacle_list; 
 time_t last_spawned_time;
 
+unsigned int player_score;
+
 void restart_game() 
 {
     player = create_new_player();
@@ -26,6 +28,8 @@ void restart_game()
     // little hack 
     obstacle_list = create_new_obstacle_node(100, 100);
     obstacle_list->current->dir.x = 0;
+
+    player_score = 0;
 
     time(&last_spawned_time);
 }
@@ -48,6 +52,8 @@ int main(int argc, char **argv)
         box(window, 0, 0);
 
         draw_game_ground(window);
+
+        draw_player_score(window, player_score);
 
         mvwaddch(window, player->pos.y, player->pos.x, 'P');
 
@@ -81,12 +87,7 @@ int main(int argc, char **argv)
 
             if (obstacle->pos.x < 0 - obstacle->w)
             {
-
-                if (index == 0)
-                {
-                    obstacle_list = obstacle_list->next;
-                    continue;
-                }
+                player_score += 10;
 
                 remove_node_from_obstacle_list(obstacle_list, index);
                 continue;

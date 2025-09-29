@@ -1,5 +1,6 @@
 #include <ncurses/curses.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "window.h"
 
@@ -40,4 +41,13 @@ void draw_block_to_window(WINDOW *window, int y, int x, int h, int w, char ch)
     for (int j = 0; j < h; j++)
         for (int i = 0; i < w; i++)
             mvwaddch(window, y + j, x + i, ch);
+}
+
+void draw_player_score(WINDOW *window, unsigned int player_score) 
+{
+    char buf[10]; 
+    sprintf(buf, "%d", player_score);
+
+    int window_w = getmaxx(window);
+    mvwprintw(window, 0, (window_w  - strlen(buf)) / 2, "%d", player_score);
 }
