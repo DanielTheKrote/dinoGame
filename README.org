@@ -34,3 +34,6 @@
   # or
   nix run .
 #+end_src
+
+** License
+The project is under the [[./LICENSE][GPL3]] License
