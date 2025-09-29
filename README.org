@@ -1,0 +1,36 @@
+#+title: Dino Game
+#+author: Daniel Maturano
+#+date: Mon Sep 29 10:26:08 AM -03 2025
+
+* Dino Game - A clone from the chrome's dino game written in C.
+
+** Usage:
+
++ Clone the repo
+#+begin_src bash
+  git clone https://github.com/DanielTheKrote/dinoGame
+  cd dinoGame
+#+end_src
+
++ Build it:
+  +First, you'll need some dependencies:
+    - make
+    - gcc
+    - ncurses.h (v 6.5.2024042)
+    - unistd.h
+
+  + If you have nix installed, just use:
+    #+bin_src bash
+      nix develop
+    #+end_src
+   
+#+begin_src bash
+  make
+#+end_src
+
++ Run it
+#+begin_src bash
+  ./dino
+  # or
+  nix run .
+#+end_src
