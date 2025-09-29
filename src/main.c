@@ -11,7 +11,7 @@
 #define TARGET_FPS 24
 #define SLEEPTIME 1000000 / TARGET_FPS
 
-#define OBSTACLE_SPAWN_X 120
+#define OBSTACLE_SPAWN_X 100
 #define OBSTACLE_SPAWN_Y 14
 
 
@@ -96,19 +96,23 @@ int main(int argc, char **argv)
             last_spawned_time = current_time;
         }
 
+        bool is_player_on_ground = false;
         if (player->pos.y > 15)
+        {
             player->pos.y = 15;
+            is_player_on_ground = true;
+        }
         
     
         switch (getch()) {
             case 'w':
-                player->dir.y = -4;
+                if (is_player_on_ground)
+                    player->dir.y = -4;
                 break;
             default:
                 break;
         }
 
-        player->dir.x = 0;
         if (player->dir.y <= 0)
             player->dir.y += 1;
 
