@@ -21,7 +21,7 @@ time_t last_spawned_time;
 
 unsigned int player_score;
 
-void restart_game() 
+void restart_game(WINDOW *window) 
 {
     player = create_new_player();
 
@@ -32,24 +32,23 @@ void restart_game()
     player_score = 0;
 
     time(&last_spawned_time);
-}
-
-
-int main(int argc, char **argv)
-{
-    cast_curses();
-
-    restart_game();
-    
-    WINDOW *window = create_new_centered_window();
-
-    srand(time(NULL));
 
     while (getch() == ERR)
     {
         set_init_window(window);
         usleep(SLEEPTIME);
     }
+}
+
+
+int main(int argc, char **argv)
+{
+    cast_curses();
+    srand(time(NULL));
+
+    WINDOW *window = create_new_centered_window();
+
+    restart_game(window);
 
     while (1)
     {
@@ -86,7 +85,7 @@ int main(int argc, char **argv)
 
             if (check_aabb_collision(player, obstacle))
             {
-                restart_game();
+                restart_game(window);
                 continue;
             }
 
