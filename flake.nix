@@ -5,7 +5,6 @@
   };
   outputs =
     {
-      self,
       nixpkgs,
       flake-utils,
       ...
@@ -15,7 +14,11 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in
-      {
+      rec {
+        packages = flake-utils.lib.flattenTree {
+          dino = pkgs.callPackage ./default.nix { };
+        };
+        defaultPackage = packages.dino;
         devShell = pkgs.mkShell {
           name = "dinoGame";
           packages = with pkgs; [
